@@ -23,6 +23,6 @@ class TestClassBase extends Component
      */
     public function render()
     {
-        return view('components.test-class-base');
+        return view('components.tests.test-class-base-component');
     }
 }
