@@ -16,8 +16,13 @@ class LifeCycleTestController extends Controller
         $test = app()->make('LifeCycleTest');
 
         // サービスコンテナなしのパターン
-        $message = new Message();
-        $sample = new Sample($message);
+        // $message = new Message();
+        // $sample = new Sample($message);
+        // $sample->run();
+
+        // サービスコンテナapp()ありのパターン
+        app()->bind('sample', Sample::class);
+        $sample = app()->make('sample');
         $sample->run();
 
         dd($test, app());
