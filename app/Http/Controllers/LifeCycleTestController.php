@@ -15,6 +15,35 @@ class LifeCycleTestController extends Controller
 
         $test = app()->make('LifeCycleTest');
 
+        // サービスコンテナなしのパターン
+        $message = new Message();
+        $sample = new Sample($message);
+        $sample->run();
+
         dd($test, app());
+    }
+}
+
+
+class Sample
+{
+    public $message;
+
+    public function __construct(Message $message)
+    {
+        $this->message = $message;
+    }
+
+    public function run()
+    {
+        $this->message->send();
+    }
+}
+
+class Message
+{
+    public function send()
+    {
+        echo ('メッセージ表示');
     }
 }
