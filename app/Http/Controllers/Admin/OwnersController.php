@@ -17,21 +17,23 @@ class OwnersController extends Controller
 
     public function index()
     {
-        $date_now = Carbon::now()->year;
-        $date_parse = Carbon::parse(now());
-        echo $date_now;
-        echo $date_parse;
+        // $date_now = Carbon::now()->year;
+        // $date_parse = Carbon::parse(now());
+        // echo $date_now;
+        // echo $date_parse;
 
-        $e_all =  Owner::all();
-        $q_get = DB::table('owners')->select('name', 'created_at')->get();
+        // $e_all =  Owner::all();
+        // $q_get = DB::table('owners')->select('name', 'created_at')->get();
         // $q_first = DB::table('owners')->select('name')->first();
         // $c_test = collect(['name' => 'テスト',]);
 
         // var_dump($q_first);
         // dd($e_all, $q_get, $q_first, $c_test);
+
+        $owners = Owner::select('name', 'email', 'created_at')->get();
         return view(
             'admin.owners.index',
-            compact('e_all', 'q_get')
+            compact('owners')
         );
     }
 
