@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrimaryCategoriesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,16 @@ class CreatePrimaryCategoriesTable extends Migration
     {
         Schema::create('primary_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->integer('sort_order');
+            $table->timestamps();
+        });
+
+        Schema::create('secondary_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('sort_order');
+            $table->foreignId('primary_category_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +36,7 @@ class CreatePrimaryCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('secondary_categories');
         Schema::dropIfExists('primary_categories');
     }
 }
