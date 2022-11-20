@@ -3,18 +3,36 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
+use App\Models\Owner;
+use App\Models\Product;
+use App\Models\SecondaryCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth:owners');
+        $this->middleware(function ($request, $next) {
+            $id = $request->route()->parameter('product');
+            if (!is_null($id)) {
+                $productsOwnerId = Product::findOrFail($id)->shop->owner->id;
+                $productId = (int)$productsOwnerId;
+                if ($productId !== Auth::id()) {
+                    abort(404);
+                }
+            }
+            return $next($request);
+        });
+    }
+
     public function index()
     {
-        //
+        $products = Owner::findOrFail(Auth::id())->shop->product;
+
+        return view('owner.products.index', compact('products'));
     }
 
     /**
