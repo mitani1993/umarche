@@ -16,6 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .modal__container {
@@ -66,7 +67,7 @@
     padding-right: 1rem;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    background-color: #e6e6e6;
+    background-color: #e6e6e6 !important;
     color: rgba(0, 0, 0, .8);
     border-radius: .25rem;
     border-style: none;
