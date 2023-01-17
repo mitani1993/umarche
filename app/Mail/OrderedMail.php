@@ -11,14 +11,18 @@ class OrderedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $product;
+    public $user;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($product, $user)
     {
-        //
+        $this->product = $product;
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +32,6 @@ class OrderedMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('emails.ordered')->subject('商品が注文されました。');
     }
 }
