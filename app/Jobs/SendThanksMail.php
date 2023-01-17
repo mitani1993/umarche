@@ -2,12 +2,15 @@
 
 namespace App\Jobs;
 
+use App\Mail\TestMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Mail;
+
 
 class SendThanksMail implements ShouldQueue
 {
@@ -30,6 +33,6 @@ class SendThanksMail implements ShouldQueue
      */
     public function handle()
     {
-        //
+        Mail::to('test@example.com')->send(new TestMail());
     }
 }
