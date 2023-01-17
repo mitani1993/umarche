@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Jobs\SendThanksMail;
 use App\Models\PrimaryCategory;
 use App\Models\Product;
 use App\Models\Stock;
@@ -31,9 +30,6 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
-        // 非同期に送信
-        SendThanksMail::dispatch();
-
         $categories = PrimaryCategory::with('secondary')->get();
         $products = Product::availableItems()
             ->selectCategory($request->category ?? '0')
